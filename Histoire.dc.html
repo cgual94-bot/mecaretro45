@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><script src="./support.js"></script></head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&amp;family=Barlow:wght@300;400;500&amp;family=Pacifico&amp;display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bleu:#2b5672;--bleu-dark:#1e3e53;--rouge:#e03939;--rouge-dark:#7f2527;--noir:#030202;--gris:#5d5d61;--clair:#f4f2f2;--blanc:#ffffff;--ft:'Barlow Condensed',Arial,sans-serif;--fc:'Barlow',Helvetica,Arial,sans-serif}
+body{font-family:var(--fc);color:var(--clair);background:var(--noir);line-height:1.6}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--ft);font-weight:600;line-height:1.15;letter-spacing:.02em}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.btn{display:inline-block;padding:.75rem 2rem;font-family:var(--ft);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.btn-rouge{background:var(--rouge);color:var(--blanc)}
+.btn-bleu{background:var(--bleu);color:var(--blanc)}
+header{position:sticky;top:0;z-index:100;background:var(--noir);border-bottom:3px solid var(--rouge)}
+.nav-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:0.6rem;padding-bottom:0.6rem;gap:0.3rem}
+.nav-row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:1rem}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo:hover{background:none}
+.logo-texte{display:flex;align-items:baseline;gap:.05em}
+.logo-meca{font-family:var(--ft);font-weight:800;font-size:1.6rem;text-transform:uppercase;color:var(--blanc)}
+.logo-retro{font-family:'Pacifico',cursive;font-size:1.25rem;color:var(--rouge)}
+.logo-num{font-family:var(--ft);font-weight:700;font-size:1rem;color:var(--rouge)}
+nav ul{list-style:none;display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
+nav a{font-family:var(--ft);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--clair);padding:.4rem .75rem;border-radius:2px}
+nav a:hover,nav a.active{background:var(--rouge);color:var(--blanc)}
+.nav-tel{display:flex;align-items:center;gap:.45rem;font-family:var(--ft);font-weight:700;font-size:.95rem;color:var(--blanc);background:var(--rouge);padding:.35rem .9rem;border-radius:2px}
+footer{background:var(--noir);color:var(--clair);padding:.6rem 0 .5rem;border-top:3px solid var(--rouge)}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:.35rem;padding-top:0;text-align:center}
+footer h4{font-family:var(--ft);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:.3rem}
+footer p,footer a{font-size:.85rem;color:#a0a0a0;line-height:1.5}
+.footer-bottom{padding-top:1rem;display:flex;justify-content:center;align-items:center;font-size:.8rem;color:#555}
+.footer-social{display:flex;gap:.75rem;margin-top:.75rem}
+.footer-social a{color:#a0a0a0}
+@keyframes blink-red{0%,100%{opacity:1}50%{opacity:.25}}
+.blink-red{color:var(--rouge);font-weight:700;animation:blink-red 1.2s infinite}
+.section{padding:5rem 0}
+.section-alt{background:var(--noir)}
+.page-hero{background:var(--noir);border-bottom:3px solid var(--rouge);padding:4rem 0 3rem;color:var(--blanc)}
+.surtitre{font-family:var(--ft);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:.5rem}
+.page-hero h1{font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase}
+.trait{width:60px;height:3px;background:var(--rouge)}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-header h2{font-size:2.5rem;text-transform:uppercase}
+.section-header .trait{margin:.75rem auto 1rem}
+/* page-specific */
+.histoire-block{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.histoire-imgs{display:flex;flex-direction:column;gap:1.5rem}
+.histoire-texte h2{font-size:2rem;text-transform:uppercase;color:var(--clair)}
+.histoire-texte p{color:#b8b8b8;margin-top:.75rem}
+.img-ph{background:var(--noir);border:2px solid var(--rouge);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
+.img-ph span{font-family:var(--ft);font-size:12px;color:#888;letter-spacing:.08em;text-transform:uppercase}
+.valeurs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.valeur{background:var(--noir);padding:2rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.valeur-icon{display:inline-flex;margin-bottom:.75rem}
+.valeur h3{font-size:1.1rem;text-transform:uppercase;color:var(--clair);margin-bottom:.5rem}
+.valeur p{color:#b8b8b8;font-size:.9rem}
+.cta-histoire{background:var(--noir);padding:5rem 0;color:var(--blanc);text-align:center}
+.cta-histoire h2{font-size:2rem;text-transform:uppercase}
+.cta-histoire p{color:rgba(255,255,255,.65);margin-top:.5rem}
+</style>
+</helmet>
+<div>
+
+<header>
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:90px;width:auto;max-width:none;display:block" />
+    </a>
+    <div class="nav-row">
+      <nav>
+        <ul>
+          <li><a href="Accueil.dc.html">Accueil</a></li>
+          <li><a href="#" class="active">Histoire</a></li>
+          <li><a href="Services.dc.html">Services</a></li>
+          <li><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a></li>
+          <li><a href="Contact.dc.html">Contact</a></li>
+          <li><a href="Suivi%20projets.dc.html">Suivi de Projets</a></li>
+          <li><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" data-screen-label="Hero">
+  <div class="container"><div style="display:flex;justify-content:center"><img src="uploads/logo-rond-fixed.png" alt="M&#233;caretro 45" style="height:100px;width:100px;border-radius:50%;display:block;margin-bottom:0.5rem" /></div><p class="surtitre">Qui sommes-nous</p><h1>Notre Histoire</h1></div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" data-screen-label="Histoire">
+  <div class="container histoire-block">
+    <div class="histoire-texte">
+      <h2>De la vente &#224; la cl&#233; &#224; molette</h2>
+      <div class="trait" style="margin:.75rem 0 1.25rem"></div>
+      <p>Gualter, 55 ans. Apr&#232;s une longue carri&#232;re dans le commerce, c&#8217;est la passion qui a pris le dessus. Depuis toujours fascin&#233; par les belles m&#233;caniques d&#8217;une autre &#233;poque et avec d&#233;j&#224; quelques restaurations de voitures &#224; son actif, il a fait le grand saut il y a 3 ans pour cr&#233;er <strong>M&#233;caretro 45</strong>.</p>
+      <p style="margin-top:1rem">Loin de l&#8217;improvisation car d&#233;j&#224; titulaire d&#8217;un C.A.P M&#233;canique V&#233;hicules L&#233;gers, cette reconversion s&#8217;est &#233;galement appuy&#233;e sur une formation s&#233;rieuse au <strong>Conservatoire National des V&#233;hicules Anciens (CNVA)</strong>, situ&#233; &#224; Antony, pr&#232;s de Paris &#8212; la r&#233;f&#233;rence fran&#231;aise pour qui veut travailler sur les v&#233;hicules de collection dans les r&#232;gles de l&#8217;art.</p>
+      <p style="margin-top:1rem">L&#8217;atelier est implant&#233; &#224; <strong>Hu&#234;tre (45520)</strong>, &#224; proximit&#233; d&#8217;Orl&#233;ans. Un espace de travail &#233;quip&#233; pour faire face &#224; la majorit&#233; des interventions en m&#233;canique et restauration classique, principalement sur v&#233;hicules d&#8217;origine europ&#233;enne avec une pr&#233;f&#233;rence pour les vieilles Volkswagen mais aussi Peugeot, Citro&#235;n, etc&#8230;<br /><strong style="color:var(--rouge)">MECARETRO 45 ne travaille pas sur voitures Anglaises et Am&#233;ricaines : On ne peut pas tout conna&#238;tre !</strong></p>
+      <p style="margin-top:1rem">Artisan ind&#233;pendant, Gualter g&#232;re seul l&#8217;atelier et s&#8217;occupe personnellement de chaque v&#233;hicule confi&#233;, de la prise en charge &#224; la restitution.</p>
+    </div>
+    <div class="histoire-imgs">
+      <div class="img-ph"><span>Photo composite &#8212; enseigne + calandre Peugeot</span></div>
+      <div class="img-ph"><span>Photo &#224; venir</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section section-alt" data-screen-label="Valeurs">
+  <div class="container">
+    <div class="section-header"><h2>Les valeurs de l&#8217;atelier</h2><div class="trait" style="margin:.75rem auto 1rem"></div></div>
+    <div class="valeurs-grid">
+      <div class="valeur">
+        <span class="valeur-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><circle cx="24" cy="19" r="7.5" stroke="var(--rouge)" stroke-width="2" fill="none"/><path d="M19.5 25.5L17 35l7-3 7 3-2.5-9.5" stroke="var(--rouge)" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M20.5 19l2.3 2.3L27.5 16" stroke="var(--rouge)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+        <h3>Authenticit&#233;</h3>
+        <p>Respect de l&#8217;origine du v&#233;hicule et utilisation de pi&#232;ces conformes. Bien sur, pas de &#171;&#160;modernisation&#160;&#187; non souhait&#233;e.</p>
+      </div>
+      <div class="valeur">
+        <span class="valeur-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><rect x="15" y="12" width="14" height="19" rx="1" stroke="var(--rouge)" stroke-width="2" fill="none"/><path d="M18 17h8M18 21h8M18 25h5" stroke="var(--rouge)" stroke-width="1.6" stroke-linecap="round"/><circle cx="29" cy="29" r="4.2" stroke="var(--rouge)" stroke-width="2" fill="none"/><path d="M32.2 32.2L36 36" stroke="var(--rouge)" stroke-width="2" stroke-linecap="round"/></svg></span></span>
+        <h3>Transparence</h3>
+        <p>Un tarif unique affich&#233; (60&#160;&#8364; HT&#160;/ heure, non soumis &#224; la TVA), des devis clairs avant chaque intervention, avec ou sans pack d&#8217;heures et un suivi en ligne du chantier.</p>
+      </div>
+      <div class="valeur">
+        <span class="valeur-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><rect x="16" y="14" width="16" height="21" rx="1.5" stroke="var(--rouge)" stroke-width="2" fill="none"/><rect x="20" y="12" width="8" height="4" rx="1" stroke="var(--rouge)" stroke-width="1.8" fill="none"/><path d="M19.5 22.5l2 2 4-4.5M19.5 29.5l2 2 4-4.5" stroke="var(--rouge)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+        <h3>Rigueur technique</h3>
+        <p>Formation CNVA, documentation technique d&#8217;&#233;poque, et pas de raccourcis&#160;: le travail bien fait dure.</p>
+      </div>
+      <div class="valeur">
+        <span class="valeur-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><path d="M24 32.5s-9-5.8-9-12.3c0-3.2 2.5-5.7 5.6-5.7 1.9 0 3.6 1 4.4 2.5.8-1.5 2.5-2.5 4.4-2.5 3.1 0 5.6 2.5 5.6 5.7 0 6.5-11 12.3-11 12.3z" stroke="var(--rouge)" stroke-width="2" fill="none" stroke-linejoin="round"/></svg></span></span>
+        <h3>Passion</h3>
+        <p>On ne se reconvertit pas dans la m&#233;canique ancienne par hasard mais par amour&#160;! Chaque v&#233;hicule qui entre dans l&#8217;atelier est une v&#233;ritable capsule temporelle qui m&#233;rite qu&#8217;on la traite avec le plus grand soin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="cta-histoire" data-screen-label="CTA">
+  <div class="container">
+    <h2>Vous avez un projet&#160;?</h2>
+    <p>Discutons-en autour d&#8217;un caf&#233; &#224; l&#8217;atelier, ou par t&#233;l&#233;phone.</p>
+    <a href="Contact.dc.html" class="btn btn-rouge" style="margin-top:1.5rem">Me contacter</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0.75rem">
+      <span class="footer-logo-box" style="justify-content:center">
+        <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:40px;width:auto;display:block;margin:0 auto" />
+      </span>
+    </div>
+    <div class="footer-grid">
+      <div>
+        <h4>Contact</h4>
+        <p><a href="tel:0988183885">09&#160;88&#160;18&#160;38&#160;85</a><br><a href="mailto:mecaretro45@gmail.com">mecaretro45@gmail.com</a><br>405 rue de la Provench&#232;re<br>45520 Hu&#234;tre</p>
+      </div>
+      <div>
+        <h4>Horaires</h4>
+        <p>Mardi &#8211; Samedi<br>9h00 &#8211; 12h30 / 14h00 &#8211; 18h00<br>Ferm&#233; lundi et dimanche<br><span class="blink-red">Visites sur rendez-vous</span></p>
+        <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.4rem">
+          <a href="https://www.facebook.com/mecaretro45" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.5 12.5h-2.1V19h-2.7v-6.5H9.2v-2.3h1.5V9.4c0-1.5.9-2.9 3.2-2.9.9 0 1.6.1 1.8.1v2.1h-1.2c-.7 0-.9.4-.9.9v1.6h2.1l-.2 2.3z" fill="white"/></svg></a>
+          <a href="https://www.instagram.com/mecaretro45/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24"><defs><linearGradient id="igGradFooter" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FEE411"/><stop offset="25%" stop-color="#FD5949"/><stop offset="55%" stop-color="#D6249F"/><stop offset="100%" stop-color="#285AEB"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igGradFooter)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="white" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="white" stroke-width="1.4"/><circle cx="16.2" cy="7.8" r="0.9" fill="white"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Liens</h4>
+        <p><a href="Services.dc.html">Nos services</a><br><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a><br><a href="Suivi%20projets.dc.html" style="color:var(--blanc)">Suivi de projets</a><br><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>&#169; 2025 M&#233;caretro 45 &#8212; Tous droits r&#233;serv&#233;s</span></div>
+    <div style="border-top:2px solid var(--rouge);margin-top:0.75rem"></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

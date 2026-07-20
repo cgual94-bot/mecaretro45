@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><script src="./support.js"></script></head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&amp;family=Barlow:wght@300;400;500&amp;family=Pacifico&amp;display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bleu:#2b5672;--bleu-dark:#1e3e53;--rouge:#e03939;--rouge-dark:#7f2527;--noir:#030202;--gris:#5d5d61;--clair:#f4f2f2;--blanc:#ffffff;--ft:'Barlow Condensed',Arial,sans-serif;--fc:'Barlow',Helvetica,Arial,sans-serif}
+body{font-family:var(--fc);color:var(--clair);background:var(--noir);line-height:1.6}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--ft);font-weight:600;line-height:1.15;letter-spacing:.02em}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.btn{display:inline-block;padding:.75rem 2rem;font-family:var(--ft);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.btn-rouge{background:var(--rouge);color:var(--blanc)}
+.btn-bleu{background:var(--bleu);color:var(--blanc)}
+header{position:sticky;top:0;z-index:100;background:var(--noir);border-bottom:3px solid var(--rouge)}
+.nav-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:0.6rem;padding-bottom:0.6rem;gap:0.3rem}
+.nav-row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:1rem}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo:hover{background:none}
+nav ul{list-style:none;display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
+nav a{font-family:var(--ft);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--clair);padding:.4rem .75rem;border-radius:2px}
+nav a:hover,nav a.active{background:var(--rouge);color:var(--blanc)}
+footer{background:var(--noir);color:var(--clair);padding:.6rem 0 .5rem;border-top:3px solid var(--rouge)}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:.35rem;padding-top:0;text-align:center}
+footer h4{font-family:var(--ft);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:.3rem}
+footer p,footer a{font-size:.85rem;color:#a0a0a0;line-height:1.5}
+.footer-bottom{padding-top:1rem;display:flex;justify-content:center;align-items:center;font-size:.8rem;color:#555}
+@keyframes blink-red{0%,100%{opacity:1}50%{opacity:.25}}
+.blink-red{color:var(--rouge);font-weight:700;animation:blink-red 1.2s infinite}
+.section{padding:5rem 0}
+.page-hero{background:var(--noir);border-bottom:3px solid var(--rouge);padding:4rem 0 3rem;color:var(--blanc)}
+.surtitre{font-family:var(--ft);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:.5rem}
+.page-hero h1{font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase}
+.trait{width:60px;height:3px;background:var(--rouge)}
+.img-ph{background:#1a1a1a;border:2px solid var(--rouge);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.img-ph span{font-family:var(--ft);font-size:12px;color:#888;letter-spacing:.08em;text-transform:uppercase}
+.contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start}
+.contact-infos h2,.contact-form-wrap h2{font-size:2rem;text-transform:uppercase}
+.info-bloc{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start}
+.info-icon{display:inline-flex;flex-shrink:0;margin-top:2px}
+.info-bloc strong{display:block;font-family:var(--ft);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clair);margin-bottom:.2rem}
+.info-bloc p,.info-bloc a{font-size:.95rem;color:#b8b8b8;line-height:1.6}
+.contact-form{display:flex;flex-direction:column;gap:1.25rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+label{font-family:var(--ft);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clair)}
+input,select,textarea{font-family:var(--fc);font-size:.95rem;padding:.65rem .9rem;border:1px solid #ccc;background:var(--blanc);color:var(--noir);outline:none;width:100%;border-radius:0}
+textarea{resize:vertical}
+.google-encart{display:flex;align-items:flex-start;gap:1.5rem;max-width:680px;margin:0 auto}
+.google-logo{flex-shrink:0;padding-top:4px}
+.google-encart h3{font-size:1.2rem;text-transform:uppercase;color:var(--clair);margin-bottom:.5rem}
+.google-encart p{color:#b8b8b8;font-size:.95rem;line-height:1.7}
+</style>
+</helmet>
+<div>
+
+<header>
+  <div class="container nav-inner">
+    <a href="Accueil.dc.html" class="logo">
+      <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:90px;width:auto;max-width:none;display:block" />
+    </a>
+    <div class="nav-row">
+      <nav>
+        <ul>
+          <li><a href="Accueil.dc.html">Accueil</a></li>
+          <li><a href="Histoire.dc.html">Histoire</a></li>
+          <li><a href="Services.dc.html">Services</a></li>
+          <li><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a></li>
+          <li><a href="#" class="active">Contact</a></li>
+          <li><a href="Suivi%20projets.dc.html">Suivi de Projets</a></li>
+          <li><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" data-screen-label="Hero">
+  <div class="container"><div style="display:flex;justify-content:center"><img src="uploads/logo-rond-fixed.png" alt="M&#233;caretro 45" style="height:100px;width:100px;border-radius:50%;display:block;margin-bottom:0.5rem" /></div><p class="surtitre">Parlons de votre projet</p><h1>Contact</h1></div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" data-screen-label="Photo">
+  <div class="container">
+    <div class="img-ph"><span>Photo atelier</span></div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" data-screen-label="Formulaire">
+  <div class="container contact-grid">
+    <div class="contact-infos">
+      <h2>M&#233;caretro 45</h2>
+      <div class="trait" style="margin:.75rem 0 1.5rem"></div>
+      <div class="info-bloc"><span class="info-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><path d="M24 15c-3.6 0-6.5 2.9-6.5 6.5 0 4.9 6.5 12.5 6.5 12.5s6.5-7.6 6.5-12.5c0-3.6-2.9-6.5-6.5-6.5z" stroke="var(--rouge)" stroke-width="2" fill="none"/><circle cx="24" cy="21.3" r="2.2" fill="var(--rouge)"/></svg></span></span><div><strong>Adresse</strong><p>405 rue de la Provench&#232;re<br>45520 Hu&#234;tre<br>(proche Orl&#233;ans, Loiret)</p></div></div>
+      <div class="info-bloc"><span class="info-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><path d="M17.5 17.2c.8 2.8 2.2 5.4 4.3 7.5s4.7 3.5 7.5 4.3l1.9-2.8c.4-.6.2-1.5-.4-1.9l-2.9-2c-.6-.4-1.4-.4-2 0l-1.1.8c-1.7-1.3-3.1-2.7-4.4-4.4l.8-1.1c.4-.6.4-1.4 0-2l-2-2.9c-.4-.6-1.3-.8-1.9-.4l-2.8 1.9z" stroke="var(--rouge)" stroke-width="2" fill="none" stroke-linejoin="round"/></svg></span></span><div><strong>T&#233;l&#233;phone</strong><p><a href="tel:+33988183885">09&#160;88&#160;18&#160;38&#160;85</a></p></div></div>
+      <div class="info-bloc"><span class="info-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><rect x="12" y="16" width="24" height="16" rx="1" stroke="var(--rouge)" stroke-width="2" fill="none"/><path d="M12.5 17l11.5 9 11.5-9" stroke="var(--rouge)" stroke-width="2" fill="none" stroke-linejoin="round"/></svg></span></span><div><strong>Email</strong><p><a href="mailto:mecaretro45@gmail.com">mecaretro45@gmail.com</a></p></div></div>
+      <div class="info-bloc"><span class="info-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><circle cx="24" cy="24" r="10" stroke="var(--rouge)" stroke-width="2" fill="none"/><path d="M24 18v6.5l4.5 3" stroke="var(--rouge)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span></span><div><strong>Horaires</strong><p>Mardi &#8211; Samedi<br>9h00 &#8211; 12h30 / 14h00 &#8211; 18h00<br>Sur rendez-vous<br>Ferm&#233; lundi et dimanche</p></div></div>
+      <div class="info-bloc"><span class="info-icon"><span style="display:inline-flex;flex-shrink:0"><svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/><path d="M30 16c-2-1.5-4.5-2-7-1-4 1.6-6 6-4.4 10s6 6 10 4.4c1.5-.6 2.7-1.6 3.4-2.9" stroke="var(--rouge)" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M14 21h10M14 27h9" stroke="var(--rouge)" stroke-width="2" stroke-linecap="round"/></svg></span></span><div><strong>Tarif main d&#8217;&#339;uvre</strong><p>60&#160;&#8364; HT / heure &#8212; Non soumis &#224; TVA, art 293 B du C.G.I</p></div></div>
+    </div>
+    <div class="contact-form-wrap" style="border:2px solid var(--rouge);padding:2rem;border-radius:4px">
+      <h2>Envoyer un message</h2>
+      <div class="trait" style="margin:.75rem 0 1.5rem"></div>
+      <form class="contact-form" onSubmit="{{ handleSubmit }}" noValidate="{{ true }}">
+        <div class="form-row">
+          <div class="form-group"><label for="nom">Nom *</label><input type="text" id="nom" ref="{{ refNom }}" required="{{ true }}" aria-required="true" placeholder="Votre nom" /></div>
+          <div class="form-group"><label for="prenom">Pr&#233;nom</label><input type="text" id="prenom" ref="{{ refPrenom }}" placeholder="Votre pr&#233;nom" /></div>
+        </div>
+        <div class="form-group"><label for="email">Email *</label><input type="email" id="email" ref="{{ refEmail }}" required="{{ true }}" aria-required="true" placeholder="votre@email.fr" /></div>
+        <div class="form-row">
+          <div class="form-group"><label for="telephone">T&#233;l&#233;phone *</label><input type="tel" id="telephone" ref="{{ refTelephone }}" required="{{ true }}" aria-required="true" placeholder="06 XX XX XX XX" /></div>
+          <div class="form-group"><label for="localite">Localit&#233;</label><input type="text" id="localite" ref="{{ refLocalite }}" placeholder="Ville, code postal" /></div>
+        </div>
+        <div class="form-group"><label for="vehicule">V&#233;hicule concern&#233;</label><input type="text" id="vehicule" ref="{{ refVehicule }}" placeholder="Ex&#160;: Renault 4L 1975, BMW E30..." /></div>
+        <div class="form-group" style="position:relative">
+          <label id="sujet-label">Sujet *</label>
+          <select id="sujet" ref="{{ refSujet }}" required="{{ true }}" aria-required="true" style="display:none">
+            <option value="">-- Choisir --</option>
+            <sc-for list="{{ sujetOptions }}" as="opt" hint-placeholder-count="7">
+              <option value="{{ opt.value }}">{{ opt.label }}</option>
+            </sc-for>
+          </select>
+          <button type="button" onClick="{{ toggleSujet }}" aria-haspopup="listbox" aria-expanded="{{ sujetOpen }}" style="width:100%;text-align:left;font-family:var(--fc);font-size:.95rem;padding:.65rem .9rem;border:1px solid #ccc;background:var(--blanc);color:var(--noir);cursor:pointer">{{ sujetLabelDisplay }}</button>
+          <sc-if value="{{ sujetOpen }}" hint-placeholder-val="{{ false }}">
+            <div role="listbox" style="position:absolute;top:100%;left:0;right:0;z-index:10;background:var(--blanc);border:1px solid #ccc;border-top:none;max-height:260px;overflow-y:auto">
+              <sc-for list="{{ sujetOptions }}" as="opt" hint-placeholder-count="7">
+                <div role="option" onClick="{{ opt.select }}" style="padding:.6rem .9rem;font-size:.95rem;color:var(--noir);cursor:pointer" style-hover="background:var(--rouge);color:var(--blanc)">{{ opt.label }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div class="form-group"><label for="message">Message *</label><textarea id="message" rows="5" ref="{{ refMessage }}" required="{{ true }}" aria-required="true" placeholder="D&#233;crivez votre besoin, votre v&#233;hicule, le probl&#232;me constat&#233;..."></textarea></div>
+        <div class="form-group" style="flex-direction:row;align-items:flex-start;gap:.5rem">
+          <input type="checkbox" id="rgpd" ref="{{ refRgpd }}" style="width:auto;margin-top:.2rem" />
+          <label for="rgpd" style="text-transform:none;letter-spacing:normal;font-size:.85rem;color:var(--rouge)">J&#8217;accepte que mes informations soient utilis&#233;es pour me recontacter au sujet de ma demande. *</label>
+        </div>
+        <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
+          <p style="background:var(--rouge);color:var(--blanc);font-size:.85rem;padding:.6rem .9rem">{{ error }}</p>
+        </sc-if>
+        <button type="submit" class="btn btn-rouge">Envoyer le message</button>
+        <p style="font-size:.8rem;color:var(--rouge)">R&#233;ponse sous 48h ouvr&#233;es.</p>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <p style="color:var(--rouge);font-size:.9rem">Votre messagerie s&#8217;est ouverte avec le message pr&#233;-rempli &#8212; il ne reste qu&#8217;&#224; l&#8217;envoyer.</p>
+        </sc-if>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" style="background:var(--noir)" data-screen-label="Google">
+  <div class="container">
+    <div class="google-encart" style="flex-direction:column;align-items:center;text-align:center">
+      <div class="google-logo"><svg width="32" height="32" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div>
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <h3>Retrouvez-moi sur Google</h3>
+        <p>Consultez ma fiche, les horaires en temps r&#233;el et laissez-moi un avis apr&#232;s votre passage &#224; l&#8217;atelier.</p>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=MECARETRO+45+405+rue+de+la+Provench%C3%A8re+45520+Hu%C3%AAtre" target="_blank" rel="noopener" class="btn btn-rouge" style="margin-top:1rem;align-self:center">Voir ma fiche Google</a>
+        <div style="display:flex;gap:0.9rem;margin-top:1.25rem;justify-content:center">
+          <a href="https://www.facebook.com/mecaretro45" target="_blank" rel="noopener" aria-label="Facebook"><svg width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.5 12.5h-2.1V19h-2.7v-6.5H9.2v-2.3h1.5V9.4c0-1.5.9-2.9 3.2-2.9.9 0 1.6.1 1.8.1v2.1h-1.2c-.7 0-.9.4-.9.9v1.6h2.1l-.2 2.3z" fill="white"/></svg></a>
+          <a href="https://www.instagram.com/mecaretro45/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="igGradContact" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FEE411"/><stop offset="25%" stop-color="#FD5949"/><stop offset="55%" stop-color="#D6249F"/><stop offset="100%" stop-color="#285AEB"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igGradContact)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="white" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="white" stroke-width="1.4"/><circle cx="16.2" cy="7.8" r="0.9" fill="white"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0.75rem">
+      <span style="justify-content:center;display:flex"><img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:40px;width:auto;display:block;margin:0 auto" /></span>
+    </div>
+    <div class="footer-grid">
+      <div><h4>Contact</h4><p><a href="tel:0988183885">09&#160;88&#160;18&#160;38&#160;85</a><br><a href="mailto:mecaretro45@gmail.com">mecaretro45@gmail.com</a><br>405 rue de la Provench&#232;re<br>45520 Hu&#234;tre</p></div>
+      <div><h4>Horaires</h4><p>Mardi &#8211; Samedi<br>9h00 &#8211; 12h30 / 14h00 &#8211; 18h00<br>Ferm&#233; lundi et dimanche<br><span class="blink-red">Visites sur rendez-vous</span></p><div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.4rem"><a href="https://www.facebook.com/mecaretro45" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.5 12.5h-2.1V19h-2.7v-6.5H9.2v-2.3h1.5V9.4c0-1.5.9-2.9 3.2-2.9.9 0 1.6.1 1.8.1v2.1h-1.2c-.7 0-.9.4-.9.9v1.6h2.1l-.2 2.3z" fill="white"/></svg></a><a href="https://www.instagram.com/mecaretro45/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24"><defs><linearGradient id="igGF2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FEE411"/><stop offset="25%" stop-color="#FD5949"/><stop offset="55%" stop-color="#D6249F"/><stop offset="100%" stop-color="#285AEB"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igGF2)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="white" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="white" stroke-width="1.4"/><circle cx="16.2" cy="7.8" r="0.9" fill="white"/></svg></a></div></div>
+      <div><h4>Liens</h4><p><a href="Services.dc.html">Nos services</a><br><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a><br><a href="Suivi%20projets.dc.html" style="color:var(--blanc)">Suivi de projets</a><br><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></p></div>
+    </div>
+    <div class="footer-bottom"><span>&#169; 2025 M&#233;caretro 45 &#8212; Tous droits r&#233;serv&#233;s</span></div>
+    <div style="border-top:2px solid var(--rouge);margin-top:0.75rem"></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{}'>
+class Component extends DCLogic {
+  state = { sent: false, error: '', sujetOpen: false, sujetValue: '', sujetLabel: '' };
+  sujetChoices = [
+    { value: 'devis', label: 'Demande de devis' },
+    { value: 'rdv', label: 'Prise de rendez-vous' },
+    { value: 'restauration', label: 'Projet de restauration' },
+    { value: 'reparation', label: 'Réparation / entretien courant' },
+    { value: 'depannage', label: 'Dépannage / remorquage' },
+    { value: 'suivi', label: 'Suivi de projet en cours' },
+    { value: 'autre', label: 'Autre question' }
+  ];
+  toggleSujet = () => this.setState(s => ({ sujetOpen: !s.sujetOpen }));
+  selectSujet = (choice) => {
+    this.setState({ sujetValue: choice.value, sujetLabel: choice.label, sujetOpen: false });
+    if (this.refSujet.current) this.refSujet.current.value = choice.value;
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const v = (ref) => (ref.current ? ref.current.value.trim() : '');
+    const nom = v(this.refNom), prenom = v(this.refPrenom), email = v(this.refEmail);
+    const telephone = v(this.refTelephone), localite = v(this.refLocalite), vehicule = v(this.refVehicule);
+    const sujetLabel = this.state.sujetLabel;
+    const message = v(this.refMessage);
+    if (!nom || !email || !telephone || !this.state.sujetValue || !message) {
+      this.setState({ error: 'Merci de compléter les champs obligatoires (*).' });
+      return;
+    }
+    if (!this.refRgpd.current || !this.refRgpd.current.checked) {
+      this.setState({ error: 'Merci d’accepter l’utilisation de vos informations pour vous recontacter.' });
+      return;
+    }
+    this.setState({ error: '' });
+    const lines = [
+      `Nom : ${nom}${prenom ? ' ' + prenom : ''}`,
+      `Email : ${email}`,
+      telephone ? `Téléphone : ${telephone}` : '',
+      localite ? `Localité : ${localite}` : '',
+      vehicule ? `Véhicule : ${vehicule}` : '',
+      '', message
+    ].filter(Boolean).join('\n');
+    const subject = encodeURIComponent(`[Site] ${sujetLabel || 'Demande de contact'} — ${nom}`);
+    const body = encodeURIComponent(lines);
+    window.location.href = `mailto:mecaretro45@gmail.com?subject=${subject}&body=${body}`;
+    this.setState({ sent: true });
+  };
+  renderVals() {
+    this.refNom = this.refNom || React.createRef();
+    this.refPrenom = this.refPrenom || React.createRef();
+    this.refEmail = this.refEmail || React.createRef();
+    this.refTelephone = this.refTelephone || React.createRef();
+    this.refLocalite = this.refLocalite || React.createRef();
+    this.refVehicule = this.refVehicule || React.createRef();
+    this.refSujet = this.refSujet || React.createRef();
+    this.refMessage = this.refMessage || React.createRef();
+    this.refRgpd = this.refRgpd || React.createRef();
+    return {
+      handleSubmit: this.handleSubmit,
+      sent: this.state.sent,
+      error: this.state.error,
+      refNom: this.refNom, refPrenom: this.refPrenom, refEmail: this.refEmail,
+      refTelephone: this.refTelephone, refLocalite: this.refLocalite, refVehicule: this.refVehicule,
+      refSujet: this.refSujet, refMessage: this.refMessage, refRgpd: this.refRgpd,
+      sujetOpen: this.state.sujetOpen,
+      toggleSujet: this.toggleSujet,
+      sujetLabelDisplay: this.state.sujetLabel || '-- Choisir --',
+      sujetOptions: this.sujetChoices.map(c => ({ value: c.value, label: c.label, select: () => this.selectSujet(c) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

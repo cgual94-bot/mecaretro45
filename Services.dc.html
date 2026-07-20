@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><script src="./support.js"></script></head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&amp;family=Barlow:wght@300;400;500&amp;family=Pacifico&amp;display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bleu:#2b5672;--bleu-dark:#1e3e53;--rouge:#e03939;--rouge-dark:#7f2527;--noir:#030202;--gris:#5d5d61;--clair:#f4f2f2;--blanc:#ffffff;--ft:'Barlow Condensed',Arial,sans-serif;--fc:'Barlow',Helvetica,Arial,sans-serif}
+body{font-family:var(--fc);color:var(--clair);background:var(--noir);line-height:1.6}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--ft);font-weight:600;line-height:1.15;letter-spacing:.02em}
+img{max-width:100%;display:block}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.btn{display:inline-block;padding:.75rem 2rem;font-family:var(--ft);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.btn-rouge{background:var(--rouge);color:var(--blanc)}
+.btn-bleu{background:var(--bleu);color:var(--blanc)}
+.btn-outline{background:transparent;border:2px solid var(--blanc);color:var(--blanc)}
+header{position:sticky;top:0;z-index:100;background:var(--noir);border-bottom:3px solid var(--rouge)}
+.nav-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:0.6rem;padding-bottom:0.6rem;gap:0.3rem}
+.nav-row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:1rem}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo:hover{background:none}
+nav ul{list-style:none;display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
+nav a{font-family:var(--ft);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--clair);padding:.4rem .75rem;border-radius:2px}
+nav a:hover,nav a.active{background:var(--rouge);color:var(--blanc)}
+footer{background:var(--noir);color:var(--clair);padding:.6rem 0 .5rem;border-top:3px solid var(--rouge)}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:.35rem;padding-top:0;text-align:center}
+footer h4{font-family:var(--ft);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:.3rem}
+footer p,footer a{font-size:.85rem;color:#a0a0a0;line-height:1.5}
+.footer-bottom{padding-top:1rem;display:flex;justify-content:center;align-items:center;font-size:.8rem;color:#555}
+@keyframes blink-red{0%,100%{opacity:1}50%{opacity:.25}}
+.blink-red{color:var(--rouge);font-weight:700;animation:blink-red 1.2s infinite}
+.section{padding:5rem 0}
+.section-alt{background:var(--noir)}
+.page-hero{background:var(--noir);border-bottom:3px solid var(--rouge);padding:4rem 0 3rem;color:var(--blanc)}
+.surtitre{font-family:var(--ft);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:.5rem}
+.page-hero h1{font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase}
+.trait{width:60px;height:3px;background:var(--rouge)}
+.img-ph{background:var(--noir);border:2px solid var(--rouge);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;align-self:center}
+.img-ph span{font-family:var(--ft);font-size:12px;color:#888;letter-spacing:.08em;text-transform:uppercase}
+.service-block{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.service-block.reverse{direction:rtl}
+.service-block.reverse>*{direction:ltr}
+.service-num{font-family:var(--ft);font-size:4rem;font-weight:700;color:rgba(255,255,255,.08);line-height:1;display:block;margin-bottom:.5rem}
+.service-texte h2{font-size:2rem;text-transform:uppercase;color:var(--clair)}
+.service-texte p{color:#b8b8b8;margin-top:.75rem}
+.service-liste{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+.service-liste li{padding-left:1.2rem;position:relative;font-size:.95rem;color:#b8b8b8}
+.service-liste li::before{content:'—';position:absolute;left:0;color:var(--rouge)}
+.pieces-encart{display:flex;gap:1.5rem;align-items:flex-start;background:var(--noir);border:2px solid var(--rouge);padding:2rem;box-shadow:0 2px 14px rgba(0,0,0,.4);max-width:780px;margin:0 auto}
+.pieces-icon{font-size:2rem;flex-shrink:0}
+.pieces-encart h2{font-size:2rem;text-transform:uppercase;color:var(--clair);margin-bottom:0}
+.pieces-encart p{color:#b8b8b8;font-size:.95rem;line-height:1.7}
+@keyframes clignote{0%,100%{opacity:1}50%{opacity:.25}}
+.clignote{color:var(--rouge);font-weight:700;animation:clignote 1.2s infinite}
+.tarif-section{background:var(--noir);padding:5rem 0;text-align:center;color:var(--blanc)}
+.tarif-content h2{font-size:2rem;text-transform:uppercase;color:var(--clair);margin-bottom:0}
+.tarif-content .trait{background:var(--rouge);width:60px;height:3px;margin:.5rem 0 1.5rem}
+.tarif-section .pieces-encart{max-width:780px;margin:0 auto}
+</style>
+</helmet>
+<div>
+
+<header>
+  <div class="container nav-inner">
+    <a href="Accueil.dc.html" class="logo">
+      <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:90px;width:auto;max-width:none;display:block" />
+    </a>
+    <div class="nav-row">
+      <nav>
+        <ul>
+          <li><a href="Accueil.dc.html">Accueil</a></li>
+          <li><a href="Histoire.dc.html">Histoire</a></li>
+          <li><a href="#" class="active">Services</a></li>
+          <li><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a></li>
+          <li><a href="Contact.dc.html">Contact</a></li>
+          <li><a href="Suivi%20projets.dc.html">Suivi de Projets</a></li>
+          <li><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" data-screen-label="Hero">
+  <div class="container"><div style="display:flex;justify-content:center"><img src="uploads/logo-rond-fixed.png" alt="M&#233;caretro 45" style="height:100px;width:100px;border-radius:50%;display:block;margin-bottom:0.5rem" /></div><p class="surtitre">Le meilleur pour votre voiture</p><h1>Nos Services</h1></div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" id="reparation" data-screen-label="R&#233;paration">
+  <div class="container service-block">
+    <div class="service-texte">
+      <span class="service-num">01</span>
+      <h2>R&#233;paration &amp; Entretien</h2>
+      <div class="trait" style="margin:.75rem 0 1.25rem"></div>
+      <p>Votre ancienne a besoin d&#8217;une remise en &#233;tat ou d&#8217;un entretien r&#233;gulier&#160;? Nous intervenons sur l&#8217;ensemble des syst&#232;mes m&#233;caniques des v&#233;hicules anciens et youngtimers, avec les m&#233;thodes et pi&#232;ces adapt&#233;es &#224; chaque &#233;poque.</p>
+      <ul class="service-liste">
+        <li>Vidange et remplacement des fluides</li>
+        <li>Freinage (disques, tambours, ma&#238;tre-cylindre)</li>
+        <li>Distribution, courroies et cha&#238;nes</li>
+        <li>Refroidissement (radiateur, pompe &#224; eau, thermostat)</li>
+        <li>Passage &#233;lectricit&#233; en 12 V</li>
+        <li>Pr&#233;paration au contr&#244;le technique</li>
+        <li>Red&#233;marrage voitures anciennes non utilis&#233;es depuis longtemps</li>
+        <li>etc&#8230;</li>
+      </ul>
+      <a href="Contact.dc.html" class="btn btn-rouge" style="margin-top:1.5rem">Demander un devis</a>
+    </div>
+    <div class="img-ph"><span>Photo r&#233;paration atelier</span></div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section section-alt" id="restauration" data-screen-label="Restauration">
+  <div class="container service-block reverse">
+    <div class="service-texte">
+      <span class="service-num">02</span>
+      <h2>Restauration</h2>
+      <div class="trait" style="margin:.75rem 0 1.25rem"></div>
+      <p>De la restauration partielle &#224; la remise en &#233;tat compl&#232;te, nous travaillons dans le respect de l&#8217;authenticit&#233; du v&#233;hicule et de sa cote. Chaque projet est unique et fait l&#8217;objet d&#8217;un suivi personnalis&#233; tout au long du chantier.</p>
+      <ul class="service-liste">
+        <li>Remise en &#233;tat m&#233;canique compl&#232;te</li>
+        <li>R&#233;vision moteur (rodage, joints, culasse)</li>
+        <li>Restauration habitacle et sellerie l&#233;g&#232;re</li>
+        <li>D&#233;graissage, nettoyage et traitement anti-corrosion</li>
+        <li>Carrosserie l&#233;g&#232;re (seuils, bas de caisse)</li>
+        <li>Conseils cote argus et authenticit&#233;</li>
+      </ul>
+      <a href="Contact.dc.html" class="btn btn-rouge" style="margin-top:1.5rem">Discuter de votre projet</a>
+    </div>
+    <div class="img-ph"><span>Photo restauration v&#233;hicule</span></div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section" id="remorquage" data-screen-label="Remorquage">
+  <div class="container service-block">
+    <div class="service-texte">
+      <span class="service-num">03</span>
+      <h2>Remorquage sur plateau</h2>
+      <div class="trait" style="margin:.75rem 0 1.25rem"></div>
+      <p>Votre v&#233;hicule est non-roulant, accident&#233; ou doit &#234;tre achemin&#233; vers l&#8217;atelier en toute s&#233;curit&#233;&#160;? Nous assurons le transport avec notre plateau porte-voiture double essieu d&#8217;une charge utile de <strong>1&#160;600&#160;kg</strong>.</p>
+      <ul class="service-liste">
+        <li>Plateau double essieu &#8212; charge utile 1&#160;600&#160;kg</li>
+        <li>Chargement 4 roues au sol, sangles de maintien</li>
+        <li>Id&#233;al pour les v&#233;hicules non-roulants, accident&#233;s ou concours, <span style="color:var(--rouge)">mais toujours sur leurs 4 roues&#160;!</span></li>
+        <li>Interventions locales et moyennes distances</li>
+      </ul>
+      <p style="margin-top:1rem;color:var(--rouge);font-size:.9rem">Tarif sur devis selon distance et r&#233;servation obligatoire.</p>
+      <a href="Contact.dc.html" class="btn btn-rouge" style="margin-top:1.5rem">Demander un devis remorquage</a>
+    </div>
+    <div class="img-ph"><span>Photo remorquage plateau</span></div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="section section-alt" data-screen-label="Politique pi&#232;ces">
+  <div class="container">
+    <div class="pieces-encart">
+      <span class="pieces-icon" style="display:inline-flex">
+        <svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="12.5" stroke="var(--rouge)" stroke-width="1" opacity=".5"/>
+          <g stroke="var(--rouge)" stroke-width="1.4" opacity=".8">
+            <circle cx="24" cy="8.7" r="1.3"/><circle cx="24" cy="39.3" r="1.3"/>
+            <circle cx="8.7" cy="24" r="1.3"/><circle cx="39.3" cy="24" r="1.3"/>
+            <circle cx="12.6" cy="12.6" r="1.3"/><circle cx="35.4" cy="35.4" r="1.3"/>
+            <circle cx="12.6" cy="35.4" r="1.3"/><circle cx="35.4" cy="12.6" r="1.3"/>
+          </g>
+          <circle cx="24" cy="24" r="6.5" fill="var(--rouge)"/>
+          <circle cx="24" cy="24" r="2" fill="var(--noir)"/>
+        </svg>
+      </span>
+      <div>
+        <p class="surtitre" style="margin-bottom:.5rem;color:var(--rouge)">Achetez vos pi&#232;ces&#160;!</p>
+        <h2>Politique pi&#232;ces d&#233;tach&#233;es</h2>
+        <div class="trait" style="margin:.5rem 0 1rem"></div>
+        <p>L&#8217;atelier <span class="clignote">ne fournit pas les pi&#232;ces d&#233;tach&#233;es</span>. Vous les commandez et les payez directement aupr&#232;s du fournisseur de votre choix qui pourra les livrer directement &#224; l&#8217;atelier. Cette organisation vous garantit la transparence totale sur le co&#251;t des pi&#232;ces et vous laisse le choix de votre fili&#232;re (occasion, neuf, stock OEM, refabrication&#8230;).</p>
+        <p style="margin-top:.5rem">Bien &#233;videmment MECARETRO 45 vous conseillera sur le choix des fournisseurs et pi&#232;ces n&#233;cessaires. Des notes de d&#233;bours restent possibles pour les petites fournitures (joints, visserie, consommables&#8230;) que MECARETRO 45 pourrait acheter au nom du client.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="border-top:2px solid var(--rouge)"></div>
+
+<section class="tarif-section" data-screen-label="Tarif">
+  <div class="container">
+    <div class="tarif-content pieces-encart" style="text-align:left">
+      <span style="display:inline-flex;margin-top:.3rem">
+        <svg width="50" height="50" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="17" stroke="var(--rouge)" stroke-width="2.5"/>
+          <path d="M30 16c-2-1.5-4.5-2-7-1-4 1.6-6 6-4.4 10s6 6 10 4.4c1.5-.6 2.7-1.6 3.4-2.9" stroke="var(--rouge)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M14 21h10M14 27h9" stroke="var(--rouge)" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div>
+        <p class="surtitre" style="margin-bottom:.5rem;color:var(--rouge)">Devis, pack d&#8217;heures et tarif unique&#8230;</p>
+        <div style="display:flex;align-items:center;gap:.75rem"><h2 style="margin:0">Politique de prix</h2></div>
+        <div class="trait" style="margin:.5rem 0 1rem"></div>
+        <p style="margin-top:.5rem;font-size:1.05rem">Un tarif unique pour la main d&#8217;&#339;uvre de <strong style="color:var(--rouge)">60&#160;&#8364; HT / heure</strong><br />(Non soumis &#224; la TVA&#160;: article 293 B du C.G.I).</p>
+        <p style="margin-top:.5rem">Dans le cas de projets de restauration ou grosse m&#233;canique, il est souvent impossible d&#8217;estimer le temps n&#233;cessaire de mani&#232;re pr&#233;cise. En effet, on ne connaitra l&#8217;&#233;tat r&#233;el du moteur, de la carrosserie, du ch&#226;ssis etc&#8230; qu&#8217;apr&#232;s d&#233;montage ou d&#233;coupe car beaucoup de choses ne sont pas visibles, surtout sur des anciennes&#160;! R&#233;aliser un devis pr&#233;cis est donc impossible, sauf si l&#8217;on est devin ou que l&#8217;on travaille &#224; la grosse louche&#160;! Pour cette raison M&#233;caretro 45 propose au client de choisir une formule de pack d&#8217;heures de main d&#8217;&#339;uvre (5, 10, 20 heures etc&#8230;) et de suivre son chantier. On ajuste au fur et &#224; mesure du chantier et on facture pr&#233;cis&#233;ment les heures pass&#233;es&#160;: une formule juste et transparente&#160;!</p>
+        <p style="margin-top:.5rem">Bien s&#251;r, pour les prestations plus simples, le devis reste de rigueur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0.75rem">
+      <span class="footer-logo-box" style="justify-content:center">
+        <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:40px;width:auto;display:block;margin:0 auto" />
+      </span>
+    </div>
+    <div class="footer-grid">
+      <div><h4>Contact</h4><p><a href="tel:0988183885">09&#160;88&#160;18&#160;38&#160;85</a><br><a href="mailto:mecaretro45@gmail.com">mecaretro45@gmail.com</a><br>405 rue de la Provench&#232;re<br>45520 Hu&#234;tre</p></div>
+      <div><h4>Horaires</h4><p>Mardi &#8211; Samedi<br>9h00 &#8211; 12h30 / 14h00 &#8211; 18h00<br>Ferm&#233; lundi et dimanche<br><span class="blink-red">Visites sur rendez-vous</span></p><div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.4rem"><a href="https://www.facebook.com/mecaretro45" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.5 12.5h-2.1V19h-2.7v-6.5H9.2v-2.3h1.5V9.4c0-1.5.9-2.9 3.2-2.9.9 0 1.6.1 1.8.1v2.1h-1.2c-.7 0-.9.4-.9.9v1.6h2.1l-.2 2.3z" fill="white"/></svg></a><a href="https://www.instagram.com/mecaretro45/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24"><defs><linearGradient id="igGFS" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FEE411"/><stop offset="25%" stop-color="#FD5949"/><stop offset="55%" stop-color="#D6249F"/><stop offset="100%" stop-color="#285AEB"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igGFS)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="white" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="white" stroke-width="1.4"/><circle cx="16.2" cy="7.8" r="0.9" fill="white"/></svg></a></div></div>
+      <div><h4>Liens</h4><p><a href="#">Nos services</a><br><a href="R%C3%A9alisations.dc.html">Nos r&#233;alisations</a><br><a href="Suivi%20projets.dc.html" style="color:var(--blanc)">Suivi de projets</a><br><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></p></div>
+    </div>
+    <div class="footer-bottom"><span>&#169; 2025 M&#233;caretro 45 &#8212; Tous droits r&#233;serv&#233;s</span></div>
+    <div style="border-top:2px solid var(--rouge);margin-top:0.75rem"></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

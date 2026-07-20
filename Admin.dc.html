@@ -1,0 +1,624 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500&family=Pacifico&display=swap" rel="stylesheet" />
+        <style>
+          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+          :root {
+            --bleu: #2b5672; --bleu-dark: #1e3e53; --rouge: #e03939;
+            --noir: #030202; --gris: #5d5d61; --clair: #f4f2f2; --blanc: #ffffff;
+            --font-titre: 'Barlow Condensed', Arial, sans-serif;
+            --font-corps: 'Barlow', Helvetica, Arial, sans-serif;
+          }
+          body { font-family: var(--font-corps); color: var(--noir); background: var(--blanc); line-height: 1.6; }
+          img { max-width: 100%; display: block; } a { color: inherit; text-decoration: none; }
+          h1,h2,h3,h4 { font-family: var(--font-titre); font-weight: 600; line-height: 1.15; letter-spacing: 0.02em; }
+          .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+          .btn { display: inline-block; padding: 0.75rem 2rem; font-family: var(--font-titre); font-weight: 600; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
+          .btn-rouge { background: var(--rouge); color: var(--blanc); }
+          header { position: sticky; top: 0; z-index: 100; background: var(--noir); border-bottom: 3px solid var(--rouge); }
+          .nav-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 0.6rem; padding-bottom: 0.6rem; gap: 0.3rem; }
+          .nav-row { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 1rem; }
+          .logo:hover { background: none; }
+          nav ul { list-style: none; display: flex; gap: 0.25rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+          nav a { font-family: var(--font-titre); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--clair); padding: 0.4rem 0.75rem; border-radius: 2px; transition: background 0.15s; white-space: nowrap; text-align: center; display: inline-block; }
+          nav a:hover, nav a.active { background: var(--rouge); color: var(--blanc); }
+          nav a.admin-link:hover { background: none; color: var(--rouge); border: 1px solid var(--rouge); }
+          .nav-tel { display: flex; align-items: center; gap: 0.45rem; font-family: var(--font-titre); font-weight: 700; font-size: 0.95rem; color: var(--blanc); background: var(--rouge); padding: 0.35rem 0.9rem; border-radius: 2px; white-space: nowrap; }
+          .section { padding: 5rem 0; }
+          .page-hero { background: var(--noir); border-bottom: 3px solid var(--rouge); padding: 4rem 0 3rem; color: var(--blanc); }
+          .surtitre { font-family: var(--font-titre); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rouge); margin-bottom: 0.5rem; }
+          .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; }
+          .hero-sub { margin-top: 0.75rem; color: rgba(255,255,255,0.65); font-size: 1rem; }
+          .chantiers-liste { display: flex; flex-direction: column; gap: 3rem; }
+          .chantier-card { display: grid; grid-template-columns: 420px 1fr; gap: 3rem; align-items: start; border-bottom: 1px solid #e8e8e8; padding-bottom: 3rem; }
+          .chantier-card:last-child { border-bottom: none; padding-bottom: 0; }
+          @media (max-width: 768px) { .chantier-card { grid-template-columns: 1fr; gap: 1.25rem; } }
+          .chantier-img { position: relative; background: #c0bebe; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+          .chantier-img span { font-family: var(--font-titre); font-size: 13px; color: #888; letter-spacing: 0.1em; text-transform: uppercase; }
+          .chantier-badge { position: absolute; top: 1rem; left: 1rem; font-family: var(--font-titre); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blanc); padding: 0.3rem 0.75rem; }
+          .chantier-meta { font-family: var(--font-titre); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; }
+          .chantier-body h2 { font-size: 1.8rem; text-transform: uppercase; color: var(--noir); margin-bottom: 1rem; }
+          .chantier-body p { color: var(--gris); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.25rem; }
+          .chantier-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+          .tag { font-family: var(--font-titre); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border: 1px solid #ccc; color: var(--gris); }
+          .chantiers-cta { margin-top: 4rem; text-align: center; background: var(--clair); padding: 3rem 2rem; }
+          .chantiers-cta p { font-size: 1.1rem; color: var(--gris); margin-bottom: 1.25rem; }
+          footer { background: var(--noir); color: var(--clair); padding: 3rem 0 1.5rem; border-top: 3px solid var(--rouge); }
+          .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 1rem; }
+          footer h4 { font-family: var(--font-titre); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rouge); margin-bottom: 0.75rem; }
+          footer p, footer a { font-size: 0.9rem; color: #a0a0a0; line-height: 1.8; }
+          .footer-bottom { padding-top: 1rem; display: flex; justify-content: space-between; font-size: 0.8rem; color: #555; }
+          .footer-social { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+          .footer-social a { color: #a0a0a0; }
+@keyframes blink-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.blink-red { color: var(--rouge); font-weight: 700; animation: blink-red 1.2s infinite; }
+        </style>
+        <script src="./image-slot.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+      </helmet>
+
+      <div>
+        <header>
+          <div class="container nav-inner">
+            <a href="#" class="logo">
+              <img src="uploads/logo-okok-fixed.png" alt="MECA R&#233;tro 45" style="height:90px;width:auto;max-width:none;display:block" />
+            </a>
+            <div class="nav-row">
+              <nav>
+                <ul>
+                  <li><a href="#">Accueil</a></li>
+                  <li><a href="#">Histoire</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="R%C3%A9alisations.dc.html">Nos réalisations</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Suivi de Projets</a></li>
+                  <li><a href="MentionsLegales.dc.html">Mentions l&#233;gales</a></li>
+                  <li><a href="Admin.dc.html" class="admin-link" style="color:var(--rouge);">Admin</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </header>
+
+        <section class="page-hero" data-screen-label="Hero">
+          <div class="container">
+            <div style="display:flex;justify-content:center"><img src="uploads/logo-rond-fixed.png" alt="Mécaretro 45" style="height:130px;width:130px;border-radius:50%;display:block;margin-bottom:0.5rem" /></div>
+            <p style="color:var(--rouge);font-family:var(--font-corps);font-size:1rem;">Puissent ils apporter satisfaction &#224; mes clients&#160;!</p>
+            <h1>Mes projets clients</h1>
+
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--noir);margin:2rem -1.5rem 0;padding:3rem 1.5rem;">
+                <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+                  <img src="uploads/logo-okok-fixed.png" alt="Mécaretro 45" style="height:110px;width:auto;" />
+                </div>
+                <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;">
+                  <div style="flex:1;max-width:340px;">
+                    <sc-if value="{{ noSelectedProject }}" hint-placeholder-val="{{ true }}">
+                      <div style="position:relative;">
+                        <input type="text" placeholder="Nom du client..." value="{{ clientSearch }}" onChange="{{ onClientSearchChange }}" onKeyDown="{{ onClientSearchKeyDown }}" style="width:100%;background:var(--noir);color:var(--blanc);border:1px solid var(--rouge);padding:0.5rem 0.75rem;font-family:var(--font-corps);font-size:0.9rem;" />
+                        <sc-if value="{{ hasMatches }}" hint-placeholder-val="{{ false }}">
+                          <div style="position:absolute;top:100%;left:0;right:0;background:var(--blanc);border:1px solid var(--rouge);z-index:10;">
+                            <sc-for list="{{ matches }}" as="m" hint-placeholder-count="2">
+                              <button type="button" data-id="{{ m.id }}" onClick="{{ selectMatch }}" style="display:block;width:100%;text-align:left;padding:0.5rem 0.75rem;background:none;border:none;color:var(--noir);font-family:var(--font-corps);font-size:0.9rem;cursor:pointer;border-bottom:1px solid #eee;">{{ m.client }} &#8212; {{ m.vehicule }} &#8212; Pack {{ m.pack }}</button>
+                            </sc-for>
+                          </div>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ adminMode }}" hint-placeholder-val="{{ false }}">
+                        <button type="button" onClick="{{ addProject }}" class="btn btn-rouge" style="margin-top:0.75rem;padding:0.5rem 1.25rem;font-size:0.8rem;">+ Ajouter un client</button>
+                      </sc-if>
+                    </sc-if>
+                    <sc-if value="{{ hasSelectedProject }}" hint-placeholder-val="{{ false }}">
+                      <button type="button" onClick="{{ changeClient }}" style="background:none;border:1px solid var(--rouge);color:var(--rouge);padding:0.5rem 1rem;font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">&#8592; Changer de client</button>
+                      <button type="button" onClick="{{ deletePack }}" style="background:none;border:1px solid var(--rouge);color:var(--rouge);padding:0.5rem 1rem;font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;margin-left:0.5rem;">Supprimer ce pack</button>
+                      <sc-if value="{{ hasMultiplePacks }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;gap:0.4rem;margin-top:0.6rem;">
+                          <sc-for list="{{ clientPacks }}" as="cp" hint-placeholder-count="2">
+                            <button type="button" data-id="{{ cp.id }}" onClick="{{ selectMatch }}" style="padding:0.3rem 0.7rem;font-family:var(--font-titre);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;background:{{ cp.isActive }};color:var(--blanc);border:1px solid var(--rouge);">{{ cp.vehicule }} &#8212; Pack {{ cp.pack }}</button>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </sc-if>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+                    <a href="Accueil.dc.html" style="font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--rouge);">&#8592; Retour au site</a>
+                    <button type="button" onClick="{{ logout }}" style="background:none;border:none;font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;color:rgba(255,255,255,0.6);cursor:pointer;">Déconnexion</button>
+                  </div>
+                </div>
+                <sc-if value="{{ adminMode }}" hint-placeholder-val="{{ false }}">
+                <sc-if value="{{ hasSelectedProject }}" hint-placeholder-val="{{ false }}">
+                  <div style="max-width:900px;margin:0 auto 1.25rem;display:grid;grid-template-columns:repeat(5, 1fr);gap:1px;background:var(--rouge);border:1px solid var(--rouge);">
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Client</div>
+                      <input data-field="client" value="{{ selectedProject.client }}" onChange="{{ handleAdminField }}" style="background:none;border:none;border-bottom:1px solid var(--rouge);color:var(--blanc);font-size:0.95rem;width:100%;font-family:var(--font-corps);" />
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Référence devis</div>
+                      <input data-field="devis" value="{{ selectedProject.devis }}" onChange="{{ handleAdminField }}" style="background:none;border:none;border-bottom:1px solid var(--rouge);color:var(--blanc);font-size:0.95rem;width:100%;font-family:var(--font-corps);" />
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Véhicule</div>
+                      <input data-field="vehicule" value="{{ selectedProject.vehicule }}" onChange="{{ handleAdminField }}" style="background:none;border:none;border-bottom:1px solid var(--rouge);color:var(--blanc);font-size:0.95rem;width:100%;font-family:var(--font-corps);" />
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Pack</div>
+                      <input data-field="pack" value="{{ selectedProject.pack }}" onChange="{{ handleAdminField }}" style="background:none;border:none;border-bottom:1px solid var(--rouge);color:var(--blanc);font-size:0.95rem;width:100%;font-family:var(--font-corps);" />
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Intitulé pack</div>
+                      <input data-field="packLabel" value="{{ selectedProject.packLabel }}" onChange="{{ handleAdminField }}" style="background:none;border:none;border-bottom:1px solid var(--rouge);color:var(--blanc);font-size:0.95rem;width:100%;font-family:var(--font-corps);" />
+                    </div>
+                  </div>
+                  <div style="max-width:900px;margin:0 auto;background:var(--noir);overflow:hidden;border:1px solid var(--rouge);">
+                    <div style="display:grid;grid-template-columns:1.3fr 2.2fr 0.6fr 0.5fr 0.5fr 2.2fr 0.25fr;">
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);">Date</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Travaux réalisés</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Photo</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Temps passé</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Temps restant</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Commentaire</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);text-align:center;">Suppr.</div>
+
+                      <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+                        <input data-index="{{ row.i }}" data-field="date" value="{{ row.date }}" onChange="{{ handleAdminRowField }}" style="padding:0.9rem 0.5rem;font-size:0.85rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:none;background:none;font-family:var(--font-corps);width:100%;" />
+                        <textarea rows="1" data-index="{{ row.i }}" data-field="travaux" value="{{ row.travaux }}" onChange="{{ handleAdminRowField }}" onInput="{{ autoGrow }}" style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);border-right:none;border-bottom:none;background:none;font-family:var(--font-corps);width:100%;resize:none;overflow:hidden;height:auto;"></textarea>
+                        <div style="padding:0.6rem 1rem;border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);"><button type="button" data-index="{{ row.i }}" onClick="{{ handleOpenPhoto }}" style="width:48px;height:48px;padding:0;border:none;cursor:pointer;background:none;overflow:hidden;position:relative;"><div style="width:800px;height:800px;transform:scale(0.06);transform-origin:top left;"><image-slot id="{{ row.photoId }}" shape="rect" placeholder="Photo"></image-slot></div></button></div>
+                        <input data-index="{{ row.i }}" data-field="passe" value="{{ row.passe }}" onChange="{{ handleAdminRowField }}" style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);background:none;font-family:var(--font-corps);width:100%;" />
+                        <input data-index="{{ row.i }}" data-field="restant" value="{{ row.restant }}" onChange="{{ handleAdminRowField }}" style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);background:none;font-family:var(--font-corps);width:100%;" />
+                        <textarea rows="1" data-index="{{ row.i }}" data-field="commentaire" value="{{ row.commentaire }}" onChange="{{ handleAdminRowField }}" onInput="{{ autoGrow }}" style="padding:0.9rem 1rem;font-size:0.85rem;color:{{ row.commentaireColor }};font-weight:{{ row.commentaireWeight }};border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);border-right:none;border-bottom:none;background:none;font-family:var(--font-corps);width:100%;resize:none;overflow:hidden;height:auto;"></textarea>
+                        <div style="padding:0.9rem 0.5rem;border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);display:flex;align-items:center;justify-content:center;"><button type="button" data-index="{{ row.i }}" onClick="{{ removeAdminRow }}" style="background:none;border:none;color:var(--rouge);font-size:1.1rem;cursor:pointer;line-height:1;">&#215;</button></div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="max-width:900px;margin:1rem auto 0;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+                    <sc-if value="{{ canAddRow }}" hint-placeholder-val="{{ true }}">
+                      <button type="button" onClick="{{ addAdminRow }}" class="btn btn-rouge" style="padding:0.5rem 1.25rem;font-size:0.8rem;">+ Ajouter une ligne</button>
+                    </sc-if>
+                    <sc-if value="{{ notCanAddRow }}" hint-placeholder-val="{{ false }}">
+                      <button type="button" onClick="{{ continueTracking }}" class="btn btn-rouge" style="padding:0.5rem 1.25rem;font-size:0.8rem;">Suite du suivi&#8230;</button>
+                    </sc-if>
+                    <sc-if value="{{ showFinishButton }}" hint-placeholder-val="{{ true }}">
+                        <button type="button" onClick="{{ finishVehicule }}" style="background:none;border:1px solid var(--rouge);color:var(--rouge);padding:0.5rem 1.25rem;font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">V&#233;hicule termin&#233;</button>
+                    </sc-if>
+                  </div>
+                  <sc-if value="{{ isFinished }}" hint-placeholder-val="{{ false }}">
+                    <div style="max-width:900px;margin:1.25rem auto 0;background:var(--rouge);color:var(--blanc);padding:1rem 1.25rem;font-family:var(--font-titre);">
+                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;flex-wrap:wrap;gap:0.5rem;">
+                        <div style="text-transform:uppercase;letter-spacing:0.08em;font-size:0.9rem;">Projet <strong style="font-weight:800;">M&#233;caretro 45</strong> termin&#233;</div>
+                        <div style="display:flex;gap:0.5rem;">
+                          <button type="button" onClick="{{ downloadAll }}" style="display:flex;align-items:center;gap:0.4rem;background:var(--blanc);color:var(--rouge);border:none;padding:0.35rem 0.7rem;font-family:var(--font-titre);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">
+                            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:16px;background:var(--rouge);color:var(--blanc);font-size:9px;font-weight:800;letter-spacing:0;border-radius:2px;">ZIP</span>
+                            T&#233;l&#233;charger les photos
+                          </button>
+                          <button type="button" onClick="{{ exportPdf }}" style="display:flex;align-items:center;gap:0.4rem;background:var(--blanc);color:var(--rouge);border:none;padding:0.35rem 0.7rem;font-family:var(--font-titre);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">
+                            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:16px;background:var(--rouge);color:var(--blanc);font-size:9px;font-weight:800;letter-spacing:0;border-radius:2px;">PDF</span>
+                            Exporter en PDF
+                          </button>
+                        </div>
+                      </div>
+                      <div style="font-size:0.85rem;font-family:var(--font-corps);letter-spacing:normal;text-transform:none;">Dur&#233;e&#160;: du {{ finishedSummary.dateStart }} au {{ finishedSummary.dateEnd }} ({{ finishedSummary.durationDays }} jours) &#8212; Total main d&#8217;&#339;uvre&#160;: {{ finishedSummary.totalHours }}h &#8212; Co&#251;t total main d&#8217;&#339;uvre&#160;: {{ finishedSummary.totalCost }}&#160;&#8364;*</div>
+                      <div style="font-size:0.75rem;font-family:var(--font-corps);letter-spacing:normal;text-transform:none;margin-top:0.5rem;opacity:0.85;">*Les pi&#232;ces ayant &#233;t&#233; command&#233;es et r&#233;gl&#233;es par le client, celui-ci devra calculer le prix global du projet en rajoutant le montant de ses achats de pi&#232;ces.</div>
+                    </div>
+                  </sc-if>
+                </sc-if>
+                </sc-if>
+                <sc-if value="{{ notAdminMode }}" hint-placeholder-val="{{ true }}">
+                  <div style="max-width:900px;margin:0 auto 1.25rem;display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:var(--rouge);border:1px solid var(--rouge);">
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Référence devis</div>
+                      <div style="color:var(--blanc);font-size:0.95rem;">{{ selectedProject.devis }}</div>
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Véhicule</div>
+                      <div style="color:var(--blanc);font-size:0.95rem;">{{ selectedProject.vehicule }}</div>
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Pack</div>
+                      <div style="color:var(--blanc);font-size:0.95rem;">{{ selectedProject.pack }}</div>
+                    </div>
+                    <div style="background:var(--noir);padding:0.85rem 1rem;">
+                      <div style="font-family:var(--font-titre);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rouge);margin-bottom:0.25rem;">Intitulé pack</div>
+                      <div style="color:var(--blanc);font-size:0.95rem;">{{ selectedProject.packLabel }}</div>
+                    </div>
+                  </div>
+                  <div style="max-width:900px;margin:0 auto;background:var(--noir);overflow:hidden;border:1px solid var(--rouge);">
+                    <div style="display:grid;grid-template-columns:1fr 1.6fr 1fr 0.8fr 0.8fr 1.6fr;">
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);">Date</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Travaux réalisés</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Photos</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Temps passé</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Temps restant</div>
+                      <div style="padding:0.9rem 1rem;font-family:var(--font-titre);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;font-size:0.85rem;color:var(--blanc);border-bottom:2px solid var(--rouge);border-left:1px solid var(--rouge);">Commentaire</div>
+
+                      <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+                        <div style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);">{{ row.date }}</div>
+                        <div style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);">{{ row.travaux }}</div>
+                        <div style="padding:0.6rem 1rem;border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);"><button type="button" data-index="{{ row.i }}" onClick="{{ handleOpenPhoto }}" style="width:48px;height:48px;padding:0;border:none;cursor:pointer;background:none;overflow:hidden;position:relative;"><div style="width:800px;height:800px;transform:scale(0.06);transform-origin:top left;"><image-slot id="{{ row.photoId }}" shape="rect" placeholder="Photo"></image-slot></div></button></div>
+                        <div style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);">{{ row.passe }}</div>
+                        <div style="padding:0.9rem 1rem;font-size:0.9rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);">{{ row.restant }}</div>
+                        <div style="padding:0.9rem 1rem;font-size:0.85rem;color:var(--blanc);border-top:1px solid var(--rouge);border-left:1px solid var(--rouge);">{{ row.commentaire }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+              <sc-if value="{{ showDeleteConfirm }}" hint-placeholder-val="{{ false }}">
+                <div style="position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem;">
+                  <div style="background:var(--blanc);max-width:400px;width:100%;border-top:4px solid var(--rouge);padding:1.75rem;text-align:center;">
+                    <p style="font-family:var(--font-titre);text-transform:uppercase;letter-spacing:0.05em;font-size:1rem;color:var(--noir);margin-bottom:0.75rem;">Supprimer ce pack&#160;?</p>
+                    <p style="font-family:var(--font-corps);font-size:0.9rem;color:var(--gris);margin-bottom:1.5rem;">Le pack {{ selectedProject.pack }} de {{ selectedProject.client }} sera supprim&#233; d&#233;finitivement. Cette action est irr&#233;versible.</p>
+                    <div style="display:flex;gap:0.75rem;justify-content:center;">
+                      <button type="button" onClick="{{ cancelDeletePack }}" style="background:none;border:1px solid #ccc;color:var(--noir);padding:0.6rem 1.25rem;font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">Annuler</button>
+                      <button type="button" onClick="{{ confirmDeletePack }}" class="btn btn-rouge" style="padding:0.6rem 1.25rem;font-size:0.8rem;">Supprimer</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ activePhotoId }}" hint-placeholder-val="{{ null }}">
+                <div onClick="{{ closePhoto }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem;">
+                  <div style="position:relative;width:min(600px,90vw);height:min(450px,70vh);border:4px solid var(--rouge);" onClick="{{ stopPropagation }}">
+                    <image-slot id="{{ activePhotoId }}" shape="rect" placeholder="Photo"></image-slot>
+                    <img src="uploads/logo-rond-fixed.png" alt="Mécaretro 45" onClick="{{ stopPropagation }}" style="position:absolute;z-index:5;bottom:8px;left:8px;height:60px;width:60px;border-radius:50%;;pointer-events:auto;"/>
+                    <button type="button" onClick="{{ closePhoto }}" style="position:absolute;top:-16px;right:-16px;width:36px;height:36px;border-radius:50%;background:var(--rouge);color:var(--blanc);border:none;font-size:1.2rem;line-height:1;cursor:pointer;">&#215;</button>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+            <sc-if value="{{ notLoggedIn }}" hint-placeholder-val="{{ true }}">
+              <div style="background:var(--blanc);color:var(--noir);max-width:380px;margin:2rem auto 0;padding:2rem;display:flex;flex-direction:column;gap:1rem;border:2px solid var(--rouge);">
+                <img src="uploads/logo-okok-fixed.png" alt="Mécaretro 45" style="height:56px;width:auto;display:block;margin:0 auto 0.5rem" />
+                <p style="font-family:var(--font-titre);text-transform:uppercase;letter-spacing:0.08em;font-size:0.85rem;color:var(--rouge);text-align:center;">Espace administrateur</p>
+                <div class="form-group" style="display:flex;flex-direction:column;gap:0.35rem;">
+                  <label for="admin-login" style="font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;">Identifiant</label>
+                  <input type="text" id="admin-login" name="admin-login" value="{{ adminLoginValue }}" onChange="{{ onAdminLoginChange }}" onKeyDown="{{ onAdminLoginKeyDown }}" style="padding:0.65rem 0.85rem;border:1px solid #ccc;font-family:var(--font-corps);font-size:0.95rem;" />
+                </div>
+                <div class="form-group" style="display:flex;flex-direction:column;gap:0.35rem;">
+                  <label for="admin-password" style="font-family:var(--font-titre);font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;">Mot de passe</label>
+                  <input type="{{ adminPasswordFieldType }}" id="admin-password" name="admin-password" value="{{ adminPasswordValue }}" onChange="{{ onAdminPasswordChange }}" onKeyDown="{{ onAdminLoginKeyDown }}" style="padding:0.65rem 0.85rem;border:1px solid #ccc;font-family:var(--font-corps);font-size:0.95rem;" />
+                  <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--gris);">
+                    <input type="checkbox" onChange="{{ toggleShowAdminPassword }}" />
+                    Afficher le mot de passe
+                  </label>
+                </div>
+                <sc-if value="{{ adminShowError }}" hint-placeholder-val="{{ false }}">
+                  <p style="color:var(--rouge);font-size:0.85rem;">Identifiant ou mot de passe incorrect.</p>
+                </sc-if>
+                <button type="button" onClick="{{ adminLogin }}" class="btn btn-rouge" style="margin-top:0.5rem;">Se connecter</button>
+              </div>
+            </sc-if>
+          </div>
+        </section>
+
+        <footer>
+          <div class="container">
+            <div class="footer-grid">
+              <div>
+                <img src="uploads/logo-okok-fixed.png" alt="Mécaretro 45" style="height:64px;width:auto;display:block" />
+                <p style="margin-top:0.75rem;text-align:center;color:var(--blanc)"><strong>Atelier spécialisé mécanique<br />et restauration de véhicules anciens<br />et youngtimers.</strong></p>
+                <div class="footer-social">
+                  <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                  <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+                </div>
+              </div>
+              <div><h4>Contact</h4><p><a href="tel:0988183885">09&#160;88&#160;18&#160;38&#160;85</a><br /><a href="mailto:mecaretro45@gmail.com">mecaretro45@gmail.com</a><br />405 rue de la Provenchère<br />45520 Huêtre</p></div>
+              <div><h4>Horaires</h4><p>Mardi &#8211; Samedi<br />9h00 &#8211; 12h30 / 14h00 &#8211; 18h00<br />Fermé lundi et dimanche<br /><span class="blink-red">Visites sur rendez-vous</span></p></div>
+              <div><h4>Liens</h4><p><a href="Services.dc.html">Nos services</a><br /><a href="R%C3%A9alisations.dc.html">Nos réalisations</a><br /><a href="Suivi%20projets.dc.html" style="color:var(--blanc)">Suivi de projets</a><br /><a href="MentionsLegales.dc.html">Mentions légales</a></p></div>
+            </div>
+            <div class="footer-bottom">
+              <span>&#169; 2025 Mécaretro 45 &#8212; Tous droits réservés</span>
+              <span>Tarif&#160;: 60&#160;€ HT / heure</span>
+            </div>
+            <div style="border-top:2px solid var(--rouge);margin-top:0.75rem"></div>
+          </div>
+        </footer>
+      </div>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script data-props="{&quot;demoLogin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;test123&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Connexion démo&quot;},&quot;demoPassword&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;test123&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Connexion démo&quot;},&quot;demoAdminLogin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Connexion admin&quot;},&quot;demoAdminPassword&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;admin123&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Connexion admin&quot;}}">
+      class Component extends DCLogic {
+  state = {
+    loggedIn: false, login: '', password: '', showError: false, activePhotoId: null,
+    adminMode: true, adminLoginValue: '', adminPasswordValue: '', adminShowError: false, selectedProjectId: null, clientSearch: '', showAdminPassword: false, showDeleteConfirm: false,
+    projects: [
+      {
+        id: 'p1', client: 'M. Durand', vehicule: 'Karmann Ghia 1600 — 1970', devis: '2026-07-014', pack: 'N°1', packLabel: 'Pack 20h',
+        rows: [
+          { date: '10/07/2026', travaux: 'Dépose moteur, contrôle culasse', passe: '3h', restant: '17h', commentaire: 'Culasse en bon état, pas de fissure' },
+          { date: '12/07/2026', travaux: 'Révision distribution et courroies', passe: '2h', restant: '15h', commentaire: 'Courroie changée par précaution' },
+          { date: '13/07/2026', travaux: 'Faisceau électrique, freinage', passe: '1h', restant: '14h', commentaire: 'Freins arrière à prévoir prochainement' },
+          { date: '15/07/2026', travaux: 'Réglages carburation, essai routier', passe: '1h', restant: '13h', commentaire: 'Essai routier concluant' },
+          { date: '17/07/2026', travaux: 'Peinture châssis, traitement anti-corrosion', passe: '4h', restant: '9h', commentaire: 'Deux couches appliquées' },
+          { date: '18/07/2026', travaux: 'Sellerie et garnitures intérieures', passe: '3h', restant: '6h', commentaire: 'Sellerie d’origine restaurée' },
+          { date: '19/07/2026', travaux: 'Réglages finaux, contrôle général', passe: '4h', restant: '2h', commentaire: 'Véhicule prêt, derniers réglages' },
+          { date: '20/07/2026', travaux: 'Essai routier final', passe: '2h', restant: '0h', commentaire: 'Pack n°1 soldé' }
+        ]
+      },
+      {
+        id: 'p2', client: 'Mme Petit', vehicule: 'Citroën 2CV AZ — 1963', devis: '2026-06-009', pack: 'N°1', packLabel: 'Pack 10h',
+        rows: [
+          { date: '02/06/2026', travaux: 'Révision moteur bicylindre', passe: '2h', restant: '8h', commentaire: 'Segments à surveiller' },
+          { date: '05/06/2026', travaux: 'Freins tambours, embrayage', passe: '3h', restant: '5h', commentaire: 'Pièces commandées' }
+        ]
+      },
+      {
+        id: 'p1b', client: 'M. Durand', vehicule: 'Karmann Ghia 1600 — 1970', devis: '2026-07-021', pack: 'N°2', packLabel: 'Pack 10h',
+        rows: [
+          { date: '25/07/2026', travaux: 'Reprise sellerie sièges avant', passe: '4h', restant: '6h', commentaire: 'Mousse et tissu remplacés' },
+          { date: '27/07/2026', travaux: 'Réglages carburateur, mise au point', passe: '2h', restant: '4h', commentaire: 'Ralenti stabilisé' }
+        ]
+      },
+      {
+        id: 'p3', client: 'Test', vehicule: 'Véhicule de test', devis: '2026-01-000', pack: 'N°1', packLabel: 'Pack 5h',
+        rows: [
+          { date: '01/01/2026', travaux: 'Ligne de test', passe: '1h', restant: '4h', commentaire: 'Exemple' }
+        ]
+      }
+    ]
+  };
+  _currentProject() {
+    return this.state.projects.find(p => p.id === this.state.selectedProjectId) || null;
+  }
+  _adminLogin() {
+    const validLogin = this.props.demoAdminLogin ?? 'admin';
+    const validPassword = this.props.demoAdminPassword ?? 'admin123';
+    if (this.state.adminLoginValue.trim() === validLogin && this.state.adminPasswordValue.trim() === validPassword) {
+      this.setState({ loggedIn: true, adminShowError: false });
+    } else {
+      this.setState({ adminShowError: true });
+    }
+  }
+  _remainingHours() {
+    const proj = this._currentProject();
+    if (!proj || proj.rows.length === 0) return null;
+    const last = proj.rows[proj.rows.length - 1];
+    const n = parseFloat(String(last.restant).replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+  _matches() {
+    const q = this.state.clientSearch.trim().toLowerCase();
+    if (!q) return [];
+    return this.state.projects.filter(p => (p.client || '').toLowerCase().includes(q));
+  }
+  renderVals() {
+    return {
+      loggedIn: this.state.loggedIn,
+      notLoggedIn: !this.state.loggedIn,
+      adminMode: this.state.adminMode,
+      adminLoginValue: this.state.adminLoginValue,
+      adminPasswordValue: this.state.adminPasswordValue,
+      adminShowError: this.state.adminShowError,
+      onAdminLoginChange: (e) => this.setState({ adminLoginValue: e.target.value }),
+      onAdminPasswordChange: (e) => this.setState({ adminPasswordValue: e.target.value }),
+      adminPasswordFieldType: this.state.showAdminPassword ? 'text' : 'password',
+      toggleShowAdminPassword: (e) => this.setState({ showAdminPassword: e.target.checked }),
+      onAdminLoginKeyDown: (e) => { if (e.key === 'Enter') this._adminLogin(); },
+      logout: () => this.setState({ loggedIn: false, adminLoginValue: '', adminPasswordValue: '', adminShowError: false }),
+      adminLogin: () => this._adminLogin(),
+      projects: this.state.projects,
+      selectedProjectId: this.state.selectedProjectId,
+      selectedProject: this._currentProject() || { client: '', devis: '', vehicule: '', pack: '', packLabel: '' },
+      hasSelectedProject: !!this._currentProject(),
+      noSelectedProject: !this._currentProject(),
+      changeClient: () => this.setState({ selectedProjectId: null, clientSearch: '' }),
+      isLastPack: (() => {
+        const current = this._currentProject();
+        if (!current) return false;
+        const packs = this.state.projects.filter(p => p.client === current.client);
+        const nums = packs.map(p => { const mm = String(p.pack || '').match(/(\d+)/); return mm ? parseInt(mm[1], 10) : 0; });
+        const maxNum = Math.max(...nums);
+        const currentNum = (() => { const mm = String(current.pack || '').match(/(\d+)/); return mm ? parseInt(mm[1], 10) : 0; })();
+        return currentNum === maxNum;
+      })(),
+      showFinishButton: (() => {
+        const current = this._currentProject();
+        return !!current && !current.finished;
+      })(),
+      isFinished: (() => { const c = this._currentProject(); return !!(c && c.finished); })(),
+      finishedSummary: (() => { const c = this._currentProject(); return c && c.finishedSummary ? c.finishedSummary : { totalHours: 0, totalCost: 0, dateStart: '', dateEnd: '', durationDays: 0 }; })(),
+      exportPdf: () => window.print(),
+      downloadAll: async () => {
+        const proj = this._currentProject();
+        if (!proj) return;
+        const ids = proj.rows.map((r, i) => 'suivi-photo-' + (i + 1));
+        const zip = new JSZip();
+        let count = 0;
+        for (const id of ids) {
+          const slot = document.getElementById(id);
+          const img = slot && slot.shadowRoot && slot.shadowRoot.querySelector('.frame img');
+          const src = img && img.getAttribute('src');
+          if (!src) continue;
+          try {
+            const res = await fetch(src);
+            const blob = await res.blob();
+            const ext = (blob.type && blob.type.split('/')[1]) || 'jpg';
+            zip.file(id + '.' + ext, blob);
+            count++;
+          } catch (e) {}
+        }
+        if (count === 0) return;
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = (proj.client || 'photos').replace(/\s+/g, '_') + '-' + (proj.pack || '') + '.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      },
+      finishVehicule: () => {
+        const current = this._currentProject();
+        if (!current) return;
+        const packs = this.state.projects.filter(p => p.client === current.client);
+        let totalHours = 0;
+        let dates = [];
+        packs.forEach(p => {
+          p.rows.forEach(r => {
+            const h = parseFloat(String(r.passe || '').replace(',', '.').replace('h', ''));
+            if (!isNaN(h)) totalHours += h;
+            if (r.date) {
+              const parts = r.date.split('/');
+              if (parts.length === 3) dates.push(parts[2] + parts[1] + parts[0]);
+            }
+          });
+        });
+        dates.sort();
+        const toDisplay = (s) => s ? (s.slice(6, 8) + '/' + s.slice(4, 6) + '/' + s.slice(0, 4)) : '';
+        const dateStart = toDisplay(dates[0]);
+        const dateEnd = toDisplay(dates[dates.length - 1]);
+        const totalCost = totalHours * 60;
+        let durationDays = 0;
+        if (dates.length > 1) {
+          const d1 = new Date(dates[0].slice(0,4), parseInt(dates[0].slice(4,6),10)-1, dates[0].slice(6,8));
+          const d2 = new Date(dates[dates.length-1].slice(0,4), parseInt(dates[dates.length-1].slice(4,6),10)-1, dates[dates.length-1].slice(6,8));
+          durationDays = Math.round((d2 - d1) / 86400000) + 1;
+        } else if (dates.length === 1) {
+          durationDays = 1;
+        }
+        const summary = { totalHours, totalCost, dateStart, dateEnd, durationDays };
+        const projects = this.state.projects.map(p => p.id === current.id ? { ...p, finished: true, finishedSummary: summary } : p);
+        this.setState({ projects });
+      },
+      deletePack: () => {
+        const current = this._currentProject();
+        if (!current) return;
+        this.setState({ showDeleteConfirm: true });
+      },
+      showDeleteConfirm: this.state.showDeleteConfirm,
+      cancelDeletePack: () => this.setState({ showDeleteConfirm: false }),
+      confirmDeletePack: () => {
+        const current = this._currentProject();
+        if (!current) { this.setState({ showDeleteConfirm: false }); return; }
+        const projects = this.state.projects.filter(p => p.id !== current.id);
+        this.setState({ projects, selectedProjectId: null, clientSearch: '', showDeleteConfirm: false });
+      },
+      canAddRow: (() => { const r = this._remainingHours(); return r === null || r > 0; })(),
+      notCanAddRow: (() => { const r = this._remainingHours(); return r !== null && r <= 0; })(),
+      continueTracking: () => {
+        const current = this._currentProject();
+        if (!current) return;
+        const m = String(current.pack || '').match(/(\d+)/);
+        const currentNum = m ? parseInt(m[1], 10) : 1;
+        const nextNum = currentNum + 1;
+        const sameClientPacks = this.state.projects.filter(p => p.client === current.client);
+        const existingNext = sameClientPacks.find(p => {
+          const mm = String(p.pack || '').match(/(\d+)/);
+          return mm && parseInt(mm[1], 10) === nextNum;
+        });
+        if (existingNext) {
+          this.setState({ selectedProjectId: existingNext.id });
+          return;
+        }
+        const projects = this.state.projects.slice();
+        const newId = 'p' + (projects.length + 1) + '-' + Date.now();
+        projects.push({
+          id: newId,
+          client: current.client,
+          vehicule: current.vehicule,
+          devis: '',
+          pack: 'N°' + nextNum,
+          packLabel: '',
+          rows: [{ date: '', travaux: '', passe: '', restant: '', commentaire: '' }]
+        });
+        this.setState({ projects, selectedProjectId: newId });
+      },
+      clientSearch: this.state.clientSearch,
+      onClientSearchChange: (e) => this.setState({ clientSearch: e.target.value }),
+      onClientSearchKeyDown: (e) => {
+        if (e.key !== 'Enter') return;
+        const found = this._matches()[0];
+        if (found) this.setState({ selectedProjectId: found.id, clientSearch: found.client });
+      },
+      matches: this._matches(),
+      clientPacks: this._currentProject() ? this.state.projects.filter(p => p.client === this._currentProject().client).map(p => ({ ...p, isActive: p.id === this.state.selectedProjectId ? 'var(--rouge)' : 'none' })) : [],
+      hasMultiplePacks: this._currentProject() ? this.state.projects.filter(p => p.client === this._currentProject().client).length > 1 : false,
+      hasMatches: this._matches().length > 0,
+      selectMatch: (e) => {
+        const id = e.currentTarget.dataset.id;
+        const p = this.state.projects.find(pr => pr.id === id);
+        this.setState({ selectedProjectId: id, clientSearch: p ? p.client : '' });
+      },
+      notAdminMode: !this.state.adminMode,
+      rows: this._currentProject() ? this._currentProject().rows.map((row, i) => ({ ...row, i, photoId: 'suivi-photo-' + (i + 1), commentaireColor: /solde|sold\u00e9/i.test(row.commentaire || '') ? 'var(--rouge)' : 'var(--blanc)', commentaireWeight: /solde|sold\u00e9/i.test(row.commentaire || '') ? '700' : '400' })) : [],
+      onSelectProject: (e) => this.setState({ selectedProjectId: e.target.value }),
+      activePhotoId: this.state.activePhotoId,
+      handleOpenPhoto: (e) => {
+        const i = parseInt(e.currentTarget.dataset.index, 10);
+        this.setState({ activePhotoId: 'suivi-photo-' + (i + 1) });
+      },
+      handleAdminField: (e) => {
+        const field = e.target.dataset.field;
+        const projects = this.state.projects.slice();
+        const idx = projects.findIndex(p => p.id === this.state.selectedProjectId);
+        projects[idx] = { ...projects[idx], [field]: e.target.value };
+        this.setState({ projects });
+      },
+      handleAdminRowField: (e) => {
+        const i = parseInt(e.target.dataset.index, 10);
+        const field = e.target.dataset.field;
+        const projects = this.state.projects.slice();
+        const idx = projects.findIndex(p => p.id === this.state.selectedProjectId);
+        const rows = projects[idx].rows.slice();
+        rows[i] = { ...rows[i], [field]: e.target.value };
+        projects[idx] = { ...projects[idx], rows };
+        this.setState({ projects });
+      },
+      addAdminRow: () => {
+        const projects = this.state.projects.slice();
+        const idx = projects.findIndex(p => p.id === this.state.selectedProjectId);
+        const rows = projects[idx].rows.slice();
+        rows.push({ date: '', travaux: '', passe: '', restant: '', commentaire: '' });
+        projects[idx] = { ...projects[idx], rows };
+        this.setState({ projects });
+      },
+      removeAdminRow: (e) => {
+        const i = parseInt(e.currentTarget.dataset.index, 10);
+        const projects = this.state.projects.slice();
+        const idx = projects.findIndex(p => p.id === this.state.selectedProjectId);
+        const rows = projects[idx].rows.slice();
+        rows.splice(i, 1);
+        projects[idx] = { ...projects[idx], rows };
+        this.setState({ projects });
+      },
+      addProject: () => {
+        const projects = this.state.projects.slice();
+        const newId = 'p' + (projects.length + 1) + '-' + Date.now();
+        const name = this.state.clientSearch.trim() || 'Nouveau client';
+        projects.push({ id: newId, client: name, vehicule: '', devis: '', pack: 'N°1', packLabel: '', rows: [] });
+        this.setState({ projects, selectedProjectId: newId, clientSearch: name });
+      },
+      autoGrow: (e) => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; },
+      closePhoto: () => this.setState({ activePhotoId: null }),
+      stopPropagation: (e) => e.stopPropagation(),
+      downloadAll: () => {
+        const ids = ['suivi-photo-1', 'suivi-photo-2', 'suivi-photo-3', 'suivi-photo-4'];
+        ids.forEach((id, i) => {
+          const slot = document.getElementById(id);
+          const img = slot && slot.shadowRoot && slot.shadowRoot.querySelector('.frame img');
+          const src = img && img.getAttribute('src');
+          if (!src) return;
+          setTimeout(() => {
+            const a = document.createElement('a');
+            a.href = src;
+            a.download = id + '.jpg';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          }, i * 300);
+        });
+      }
+    };
+  }
+}
+    </script>
+  </body>
+</html>
