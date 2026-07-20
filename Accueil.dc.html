@@ -176,26 +176,24 @@
               <div class="trait"></div>
               <div class="rating-line">
                 <svg width="32" height="32" viewBox="0 0 48 48" style="flex-shrink:0"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
-                <span class="rating-score">4,8</span>
+                <span class="rating-score">{{ ratingScore }}</span>
                 <div>
                   <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                  <div class="rating-count">8 avis Google v&#233;rifi&#233;s</div>
+                  <div class="rating-count">{{ ratingCount }}</div>
                 </div>
               </div>
             </div>
             <div class="avis-grid">
-              <div class="avis-card">
-                <div class="avis-top"><div class="avis-av">JL</div><div><div class="avis-nom">Jean-Luc M.</div><div class="avis-etoiles">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div>
-                <p class="avis-texte">&#171;&#160;Excellent travail sur ma Golf GTI. S&#233;rieux, rapide, prix honn&#234;te. Je recommande sans h&#233;siter.&#160;&#187;</p>
-              </div>
-              <div class="avis-card">
-                <div class="avis-top"><div class="avis-av">SM</div><div><div class="avis-nom">Sophie M.</div><div class="avis-etoiles">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div>
-                <p class="avis-texte">&#171;&#160;Mon Combi T3 est entre de bonnes mains. Gualter conna&#238;t ces v&#233;hicules mieux que quiconque dans la r&#233;gion.&#160;&#187;</p>
-              </div>
-              <div class="avis-card">
-                <div class="avis-top"><div class="avis-av">PD</div><div><div class="avis-nom">Pierre D.</div><div class="avis-etoiles">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div>
-                <p class="avis-texte">&#171;&#160;Restauration de ma 2CV men&#233;e avec passion et professionnalisme. R&#233;sultat bluffant.&#160;&#187;</p>
-              </div>
+              <sc-for list="{{ avisCards }}" as="a" hint-placeholder-count="3">
+                <div class="avis-card">
+                  <div class="avis-top">
+                    <div class="avis-av">{{ a.initiales }}</div>
+                    <div><div class="avis-nom">{{ a.nom }}</div><div class="avis-etoiles">{{ a.etoiles }}</div></div>
+                  </div>
+                  <p class="avis-texte">&#171;&#160;{{ a.texte }}&#160;&#187;</p>
+                  <span style="font-size:0.78rem;color:#666;font-family:var(--font-titre);letter-spacing:0.08em;text-transform:uppercase;">{{ a.date }}</span>
+                </div>
+              </sc-for>
             </div>
             <div class="avis-google-link">
               <a href="https://www.google.com/search?hl=fr&amp;q=avis+google+mecaretro+45" style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
@@ -252,8 +250,42 @@
       </div>
     </x-dc>
     <script type="text/x-dc" data-dc-script data-props='{}'>
+      const AVIS_FALLBACK = [
+        { nom: 'Jean-Luc M.', initiales: 'JL', etoiles: '★★★★★', texte: 'Excellent travail sur ma Golf GTI. Sérieux, rapide, prix honnête. Je recommande sans hésiter.', date: '' },
+        { nom: 'Sophie M.',   initiales: 'SM', etoiles: '★★★★★', texte: 'Mon Combi T3 est entre de bonnes mains. Gualter connaît ces véhicules mieux que quiconque dans la région.', date: '' },
+        { nom: 'Pierre D.',   initiales: 'PD', etoiles: '★★★★★', texte: 'Restauration de ma 2CV menée avec passion et professionnalisme. Résultat bluffant.', date: '' }
+      ];
+
       class Component extends DCLogic {
-        renderVals() { return {}; }
+        state = { avis: AVIS_FALLBACK, rating: 4.8, total: 8 };
+
+        componentDidMount() {
+          fetch('/.netlify/functions/avis')
+            .then(r => r.ok ? r.json() : null)
+            .then(data => {
+              if (!data || !data.reviews) return;
+              const avis = data.reviews
+                .filter(r => r.rating >= 4)
+                .slice(0, 3)
+                .map(r => ({
+                  nom: r.author_name,
+                  initiales: r.author_name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+                  etoiles: '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating),
+                  texte: r.text,
+                  date: r.relative_time_description || ''
+                }));
+              if (avis.length > 0) this.setState({ avis, rating: data.rating, total: data.user_ratings_total });
+            })
+            .catch(() => {});
+        }
+
+        renderVals() {
+          return {
+            avisCards: this.state.avis,
+            ratingScore: this.state.rating ? this.state.rating.toFixed(1).replace('.', ',') : '4,8',
+            ratingCount: this.state.total ? `${this.state.total} avis Google vérifiés` : '8 avis Google vérifiés'
+          };
+        }
       }
     </script>
   </body>
